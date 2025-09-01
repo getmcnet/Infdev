@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft WebAssembly Prompt</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .dialog {
+    background-color: #2c2c2c;
+    padding: 30px;
+    border-radius: 12px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  }
+
+  .dialog h2 {
+    margin-top: 0;
+    font-size: 1.3em;
+  }
+
+  .dialog p {
+    font-size: 0.95em;
+    margin: 10px 0;
+  }
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    font-size: 0.9em;
+  }
+
+  .checkbox-container input {
+    margin-right: 10px;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    font-size: 0.9em;
+    transition: transform 0.1s;
+  }
+
+  .btn:hover {
+    transform: scale(1.05);
+  }
+
+  .btn.green {
+    background-color: #4caf50;
+    color: white;
+  }
+
+  .btn.gray {
+    background-color: #888;
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+<div class="dialog" id="promptBox">
+  <h2>Minecraft Infdev WebAssembly GC may be supported on your browser, would you like to try it?</h2>
+  <p>The new variant gets almost 2x the FPS, however it may crash if your device doesn't have a lot of memory.</p>
+  <p>Your existing singleplayer worlds will be available.</p>
+
+  <div class="checkbox-container">
+    <input type="checkbox" id="dontShowAgain">
+    <label for="dontShowAgain">Do not show again</label>
+  </div>
+
+  <div class="buttons">
+    <button class="btn green" onclick="switchToWasm()">Switch to WebAssembly version</button>
+    <button class="btn gray" onclick="keepJS()">Keep using JavaScript version</button>
+  </div>
+</div>
+
+<script>
+  // Check if user already chose a version
+  window.onload = function() {
+    const skip = localStorage.getItem('skipWasmPrompt');
+    const choice = localStorage.getItem('preferredVersion');
+
+    if (skip === 'true' && choice) {
+      if (choice === 'wasm') {
+        window.location.href = "https://yee.pages.dev/#/aW5md2FzbQ";
+      } else if (choice === 'js') {
+        window.location.href = "https://yee.pages.dev/#/aW5manM";
+      }
+    }
+  };
+
+  function switchToWasm() {
+    const dontShow = document.getElementById('dontShowAgain').checked;
+    if (dontShow) {
+      localStorage.setItem('skipWasmPrompt', 'true');
+      localStorage.setItem('preferredVersion', 'wasm');
+    }
+    window.location.href = "https://yee.pages.dev/#/aW5md2FzbQ";
+  }
+
+  function keepJS() {
+    const dontShow = document.getElementById('dontShowAgain').checked;
+    if (dontShow) {
+      localStorage.setItem('skipWasmPrompt', 'true');
+      localStorage.setItem('preferredVersion', 'js');
+    }
+    window.location.href = "https://yee.pages.dev/#/aW5manM";
+  }
+</script>
+
+</body>
+</html>
